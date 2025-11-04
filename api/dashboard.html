@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>F1 Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <style>
+      body { font-family: 'Poppins', sans-serif; }
+      h1, h2, h3, .font-orbitron { font-family: 'Orbitron', sans-serif; }
+    </style>
+  </head>
+  <body class="bg-background-light dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col min-h-screen">
+    <header class="bg-gray-100 dark:bg-gray-800 py-4 shadow-md">
+      <div class="container mx-auto px-6 flex justify-between items-center">
+        <h1 class="text-2xl font-bold font-orbitron text-primary">F1 Dashboard</h1>
+        <a href="../index.html" class="text-sm text-primary hover:underline">⬅ Back to Hub</a>
+      </div>
+    </header>
+
+    <main class="flex-1 container mx-auto px-6 py-10">
+      <h2 class="text-3xl font-bold text-center font-orbitron mb-8">Top 3 Drivers - 2025 Season</h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full border border-gray-300 dark:border-gray-700 rounded-lg shadow-md">
+          <thead class="bg-primary text-white">
+            <tr>
+              <th class="py-3 px-4 text-left">Position</th>
+              <th class="py-3 px-4 text-left">Driver</th>
+              <th class="py-3 px-4 text-left">Team</th>
+              <th class="py-3 px-4 text-left">Points</th>
+            </tr>
+          </thead>
+          <tbody id="driversTable" class="bg-white dark:bg-gray-800"></tbody>
+        </table>
+      </div>
+    </main>
+
+    <script>
+      async function loadData() {
+        const tableBody = document.getElementById("driversTable");
+        try {
+          const response = await fetch("drivers.json");
+          const data = await response.json();
+          tableBody.innerHTML = data.standings.map(driver => `
+            <tr class="border-t border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+              <td class="py-3 px-4">${driver.position}</td>
+              <td class="py-3 px-4 font-semibold">${driver.driver}</td>
+              <td class="py-3 px-4">${driver.team}</td>
+              <td class="py-3 px-4 font-bold">${driver.points}</td>
+            </tr>
+          `).join("");
+        } catch (error) {
+          tableBody.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-red-500">Error loading driver data.</td></tr>`;
+          console.error("Error fetching data:", error);
+        }
+      }
+
+      loadData();
+    </script>
+  </body>
+</html>

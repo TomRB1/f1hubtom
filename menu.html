@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>F1 Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+      body {
+        font-family: 'Poppins', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6, .font-orbitron {
+        font-family: 'Orbitron', sans-serif;
+      }
+    </style>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#FF1801",
+              "background-light": "#f8f5f5",
+              "background-dark": "#121212",
+              "card-dark": "#1E1E1E",
+              "card-light": "#FFFFFF",
+              "text-light": "#121212",
+              "text-dark": "#EAEAEA",
+              "text-muted-light": "#6b7280",
+              "text-muted-dark": "#9ca3af",
+            },
+            fontFamily: {
+              "display": ["Orbitron", "sans-serif"],
+              "body": ["Poppins", "sans-serif"],
+            },
+            borderRadius: {
+                "DEFAULT": "0.5rem",
+                "lg": "0.75rem",
+                "xl": "1rem",
+                "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-body text-text-light dark:text-text-dark antialiased">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header Bar -->
+<header class="sticky top-0 z-10 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex h-16 items-center justify-between">
+<h1 class="text-xl font-bold font-orbitron text-primary">F1 Hub</h1>
+<button aria-label="Logout" class="flex h-10 w-10 items-center justify-center rounded-full text-text-light hover:bg-gray-200 dark:text-text-dark dark:hover:bg-white/10">
+<span class="material-symbols-outlined text-2xl">logout</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex flex-1 flex-col items-center justify-center p-4 sm:p-6 lg:p-8">
+<div class="container mx-auto flex flex-col items-center text-center">
+<!-- Welcome Text Block -->
+<div class="w-full max-w-3xl py-8">
+<h2 class="text-4xl font-bold tracking-wider text-text-light dark:text-white sm:text-5xl lg:text-6xl font-orbitron">Welcome, User!</h2>
+<p class="mt-4 text-base leading-relaxed text-text-muted-light dark:text-text-muted-dark sm:text-lg">Your pit stop for all things Formula 1.</p>
+</div>
+<!-- Feature Cards -->
+<div class="mt-8 grid w-full max-w-4xl grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+<!-- Card 1: Drivers Info -->
+<a class="group relative flex transform flex-col justify-between overflow-hidden rounded-xl bg-card-light dark:bg-card-dark p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20" href="api/dashboard.html">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-primary/10"></div>
+<div class="relative z-10">
+<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-3xl">sports_score</span>
+</div>
+<h3 class="mt-6 text-2xl font-bold text-text-light dark:text-white font-orbitron">Drivers Info</h3>
+<p class="mt-2 text-sm text-text-muted-light dark:text-text-muted-dark">Explore stats, bios, and standings for every driver on the grid.</p>
+</div>
+<div class="relative z-10 mt-6 flex items-center justify-end text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<span class="text-sm font-semibold">Explore</span>
+<span class="material-symbols-outlined ml-1">arrow_forward</span>
+</div>
+</a>
+<!-- Card 2: F1 Quiz Game -->
+<a class="group relative flex transform flex-col justify-between overflow-hidden rounded-xl bg-card-light dark:bg-card-dark p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/20" href="quiz.html">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:from-primary/10"></div>
+<div class="relative z-10">
+<div class="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-3xl">quiz</span>
+</div>
+<h3 class="mt-6 text-2xl font-bold text-text-light dark:text-white font-orbitron">F1 Quiz Game</h3>
+<p class="mt-2 text-sm text-text-muted-light dark:text-text-muted-dark">Test your knowledge and race to the top of the leaderboard.</p>
+</div>
+<div class="relative z-10 mt-6 flex items-center justify-end text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+<span class="text-sm font-semibold">Play Now</span>
+<span class="material-symbols-outlined ml-1">arrow_forward</span>
+</div>
+</a>
+</div>
+</div>
+</main>
+</div>
+</body></html>
