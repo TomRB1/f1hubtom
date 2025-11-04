@@ -72,7 +72,7 @@ body { min-height: max(884px, 100dvh); }
 </div>
 
 <script type="module">
-import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+import * as emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
 
 emailjs.init('eIsE6w5jjP1BDxikf');
 
@@ -101,5 +101,7 @@ sendBtn.addEventListener("click", async () => {
 });
 </script>
 
+
 </body>
 </html>
+
