@@ -9,27 +9,10 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-<script>
-tailwind.config = {
-  darkMode: "class",
-  theme: {
-    extend: {
-      colors: {
-        "primary": "#f20d0d",
-        "background-light": "#f8f5f5",
-        "background-dark": "#221010",
-      },
-      fontFamily: { "display": ["Space Grotesk", "sans-serif"] },
-      borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }
-    }
-  }
-};
-</script>
 <style>
-.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24 }
+.material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
 body { min-height: max(884px,100dvh); }
 </style>
-<script type="module" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="font-display">
 <div class="flex min-h-screen w-full flex-col items-center justify-center bg-background-dark">
@@ -42,18 +25,15 @@ body { min-height: max(884px,100dvh); }
     </svg>
     <p class="text-white/80 font-display text-sm tracking-widest pt-2">RACING PORTAL</p>
   </div>
-
   <div class="flex w-full max-w-md flex-col rounded-xl bg-black/30 p-6 backdrop-blur-md border border-white/10">
     <h1 class="text-white tracking-light text-[32px] font-bold leading-tight text-center pb-6 font-display">Welcome Back Driver</h1>
-    
     <label class="flex flex-col w-full">
       <p class="text-white/90 text-base font-medium leading-normal pb-2 font-display">Email Address</p>
       <div class="relative flex items-center">
         <span class="material-symbols-outlined absolute left-4 text-white/50">mail</span>
-        <input id="email" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/80 border border-white/10 bg-[#2C2C2C]/50 h-14 placeholder:text-white/40 pl-12 p-4 text-base font-normal font-display" placeholder="Enter your email" value=""/>
+        <input id="email" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/80 border border-white/10 bg-[#2C2C2C]/50 h-14 placeholder:text-white/40 pl-12 p-4 text-base font-normal font-display" placeholder="Enter your email"/>
       </div>
     </label>
-
     <div class="w-full pt-6">
       <button id="sendCodeBtn" class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] font-display transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]">
         <span class="truncate">START YOUR ENGINE</span>
@@ -64,8 +44,6 @@ body { min-height: max(884px,100dvh); }
 
 <script type="module">
 import * as emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
-
-emailjs.init('eIsE6w5jjP1BDxikf');
 
 const emailInput = document.getElementById("email");
 const sendBtn = document.getElementById("sendCodeBtn");
@@ -79,13 +57,15 @@ sendBtn.addEventListener("click", async () => {
   localStorage.setItem("f1_email", email);
 
   try {
-    const result = await emailjs.send('service_obaxqky', 'template_108m6ni', {
-      to_email: email,
-      code: code
-    });
+    const result = await emailjs.send(
+      'service_obaxqky',   // service ID
+      'template_108m6ni',  // template ID
+      { to_email: email, code: code },
+      'eIsE6w5jjP1BDxikf'  // public key
+    );
     alert("Codigo enviado a " + email);
     window.location.href = "verify.html";
-  } catch(err) {
+  } catch (err) {
     console.error("Error enviando email:", err);
     alert("No se pudo enviar el codigo, revise la consola");
   }
