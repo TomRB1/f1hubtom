@@ -71,30 +71,35 @@ body { min-height: max(884px, 100dvh); }
   </div>
 </div>
 
-<script>
-  emailjs.init("eIsE6w5jjP1BDxikf");
+<script type="module">
+import emailjs from 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
 
-  const emailInput = document.getElementById("email");
-  const sendBtn = document.getElementById("sendCodeBtn");
+emailjs.init('eIsE6w5jjP1BDxikf');
 
-  sendBtn.addEventListener("click", function() {
-    const email = emailInput.value.trim();
-    if (!email) return alert("Ingrese un email valido");
+const emailInput = document.getElementById("email");
+const sendBtn = document.getElementById("sendCodeBtn");
 
-    let code = Math.floor(100000 + Math.random() * 900000).toString();
-    localStorage.setItem("f1_code", code);
-    localStorage.setItem("f1_email", email);
+sendBtn.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+  if (!email) return alert("Ingrese un email valido");
 
-    emailjs.send("service_obaxqky", "template_108m6ni", { email: email, code: code })
-      .then(function(response) {
-        console.log("Email enviado:", response.status, response.text);
-        alert("Codigo enviado a " + email);
-        window.location.href = "verify.html";
-      }, function(error) {
-        console.error("Error enviando email:", error);
-        alert("No se pudo enviar el codigo, revise la consola");
-      });
-  });
+  const code = Math.floor(100000 + Math.random() * 900000).toString();
+  localStorage.setItem("f1_code", code);
+  localStorage.setItem("f1_email", email);
+
+  try {
+    const result = await emailjs.send('service_obaxqky', 'template_108m6ni', {
+      to_email: email,
+      code: code
+    });
+    alert("Codigo enviado a " + email);
+    window.location.href = "verify.html";
+  } catch(err) {
+    console.error("Error enviando email:", err);
+    alert("No se pudo enviar el codigo, revise la consola");
+  }
+});
 </script>
+
 </body>
 </html>
