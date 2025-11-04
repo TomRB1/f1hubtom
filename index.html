@@ -6,39 +6,30 @@
 <title>F1 Login Screen</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
 <script>
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "primary": "#f20d0d",
-          "background-light": "#f8f5f5",
-          "background-dark": "#221010"
-        },
-        fontFamily: {
-          "display": ["Space Grotesk","sans-serif"]
-        },
-        borderRadius: {
-          "DEFAULT": "0.25rem",
-          "lg": "0.5rem",
-          "xl": "0.75rem",
-          "full": "9999px"
-        }
-      }
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#f20d0d",
+        "background-light": "#f8f5f5",
+        "background-dark": "#221010",
+      },
+      fontFamily: { "display": ["Space Grotesk", "sans-serif"] },
+      borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }
     }
   }
+};
 </script>
 <style>
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
-}
-body { min-height: max(884px, 100dvh); }
+.material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24 }
+body { min-height: max(884px,100dvh); }
 </style>
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body class="font-display">
 <div class="flex min-h-screen w-full flex-col items-center justify-center bg-background-dark">
@@ -59,7 +50,7 @@ body { min-height: max(884px, 100dvh); }
       <p class="text-white/90 text-base font-medium leading-normal pb-2 font-display">Email Address</p>
       <div class="relative flex items-center">
         <span class="material-symbols-outlined absolute left-4 text-white/50">mail</span>
-        <input id="email" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/80 border border-white/10 bg-[#2C2C2C]/50 h-14 placeholder:text-white/40 pl-12 p-4 text-base font-normal font-display" placeholder="Enter your email"/>
+        <input id="email" class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-white focus:outline-0 focus:ring-2 focus:ring-primary/80 border border-white/10 bg-[#2C2C2C]/50 h-14 placeholder:text-white/40 pl-12 p-4 text-base font-normal font-display" placeholder="Enter your email" value=""/>
       </div>
     </label>
 
@@ -100,8 +91,5 @@ sendBtn.addEventListener("click", async () => {
   }
 });
 </script>
-
-
 </body>
 </html>
-
