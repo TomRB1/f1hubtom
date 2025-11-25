@@ -38,7 +38,7 @@
         async function loadDrivers() {
             try {
 
-                const response = await fetch('./public/drivers.json');
+                const response = await fetch('./drivers.json');
                 if (!response.ok) {
                     throw new Error('Error al cargar data.json');
                 }
@@ -109,4 +109,5 @@
 </body>
 
 </html>
+
 
