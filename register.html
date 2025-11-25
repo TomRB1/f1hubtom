@@ -72,7 +72,7 @@
 </div>
 
 <script type="module">
-// 1. CONFIGURACIÓN REAL DE FIREBASE
+
 const firebaseConfig = {
     apiKey: "AIzaSyCI5lOdyNV6intEbFy9BXPP-gcPDD3vQOY",
     authDomain: "webmussetof1.firebaseapp.com",
@@ -86,17 +86,17 @@ const firebaseConfig = {
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-// Inicializar Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// 3. OBTENER ELEMENTOS DEL DOM
+
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const registerBtn = document.getElementById("registerBtn");
 const loginLink = document.getElementById("loginLink");
 
-// 4. LÓGICA DE REGISTRO CON FIREBASE
+
 if (registerBtn) {
     registerBtn.addEventListener("click", async () => {
         const email = emailInput.value.trim();
@@ -112,14 +112,14 @@ if (registerBtn) {
         }
 
         try {
-            // 1. Crea el usuario
+  
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // 2. Envía el email de verificación
+
             await sendEmailVerification(user);
             
-            // 3. Informa al usuario y redirige al Login
+
             alert("¡Cuenta creada con éxito! Se ha enviado un correo de verificación. Por favor, verifica tu cuenta antes de iniciar sesión.");
             window.location.href = "index.html"; 
             
@@ -139,14 +139,13 @@ if (registerBtn) {
     });
 }
 
-// 5. Redirigir al Login
+
 if (loginLink) {
     loginLink.addEventListener("click", () => {
         window.location.href = "index.html";
     });
 }
 
-// 6. Lógica de Visibilidad de Contraseña
 const passwordInputReg = document.getElementById("password");
 const togglePasswordReg = document.getElementById("togglePasswordReg");
 
