@@ -162,5 +162,25 @@ if (driversBtn) {
     });
 }
 </script>
+<script>
+  // Botones del menú
+  const driversBtn = document.getElementById("driversBtn");
+  const quizzBtn = document.getElementById("quizzBtn");
+
+  // Redirecciones
+  if (driversBtn) {
+    driversBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "api/dashboard.html"; // ← tu dashboard de pilotos
+    });
+  }
+
+  if (quizzBtn) {
+    quizzBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "quiz.html"; // ← tu quiz
+    });
+  }
+</script>
 </body>
 </html>
