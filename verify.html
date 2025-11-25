@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Verificar Email – F1 HUB</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- FUENTES -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
+
+  <style>
+    body { font-family: 'Space Grotesk', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-[#0e0e0e] text-white min-h-screen flex items-center justify-center p-6">
+
+  <div class="w-full max-w-md bg-black/40 border border-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl">
+    
+    <h1 class="text-3xl font-bold text-center mb-4 text-red-500">Verificación de Email</h1>
+    <p class="text-center text-white/70 mb-6">
+      Para continuar, debés verificar tu email.  
+      Revisá tu bandeja de entrada y spam.
+    </p>
+
+    <div id="statusBox" class="text-center text-white/80 text-sm mb-6">
+      Verificando estado de tu cuenta...
+    </div>
+
+    <button id="checkBtn" class="w-full py-3 bg-red-600 hover:bg-red-700 transition rounded-lg font-bold mb-3">
+      REVISAR VERIFICACIÓN
+    </button>
+
+    <button id="resendBtn" class="w-full py-3 bg-white/10 border border-white/20 hover:bg-white/20 transition rounded-lg font-bold">
+      REENVIAR EMAIL
+    </button>
+
+    <p class="mt-6 text-center text-sm text-white/50">
+      ¿Volver al inicio?
+      <a href="index.html" class="underline hover:text-red-400">Login</a>
+    </p>
+
+  </div>
+
+  <script type="module">
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCI5lOdyNV6intEbFy9BXPP-gcPDD3vQOY",
+      authDomain: "webmussetof1.firebaseapp.com",
+      projectId: "webmussetof1",
+      storageBucket: "webmussetof1.firebasestorage.app",
+      messagingSenderId: "461670115383",
+      appId: "1:461670115383:web:55a98857d6d620efd5b7b2",
+      measurementId: "G-03VLFQ4MVH"
+    };
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { 
+      getAuth,
+      onAuthStateChanged,
+      sendEmailVerification,
+      reload
+    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const statusBox = document.getElementById("statusBox");
+    const checkBtn = document.getElementById("checkBtn");
+    const resendBtn = document.getElementById("resendBtn");
+
+    // Chequear si el usuario está logueado
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        statusBox.textContent = "No hay un usuario logueado. Iniciá sesión primero.";
+        return;
+      }
+
+      await reload(user);
+
+      if (user.emailVerified) {
+        statusBox.innerHTML = `<span class="text-green-400">Email verificado ✔</span>`;
+        window.location.href = "dashboard.html";
+      } else {
+        statusBox.textContent = "Tu email aún no está verificado.";
+      }
+    });
+
+    // Botón: Revisar si ya verificó
+    checkBtn.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      await reload(user);
+
+      if (user.emailVerified) {
+        alert("¡Email verificado! Iniciando...");
+        window.location.href = "dashboard.html";
+      } else {
+        alert("Todavía no verificaste el email.");
+      }
+    });
+
+    // Botón: Reenviar email
+    resendBtn.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) return alert("No hay usuario logueado.");
+
+      try {
+        await sendEmailVerification(user);
+        alert("Email reenviado. Revisá tu bandeja.");
+      } catch (err) {
+        console.error(err);
+        alert("Error reenviando email.");
+      }
+    });
+
+  </script>
+
+</body>
+</html>

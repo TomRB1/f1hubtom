@@ -1,99 +1,162 @@
-<!DOCTYPE html>
 <html class="dark" lang="en">
-
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Register – F1 Portal</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-  <style>
-    body { font-family: 'Space Grotesk', sans-serif; }
-    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400;}
-  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>F1 Register Screen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f20d0d",
+            "background-light": "#f8f5f5",
+            "background-dark": "#221010",
+            "card-light": "#ffffff",
+            "card-dark": "#1a1a1a",
+            "text-light": "#1f2937",
+            "text-dark": "#f3f4f6",
+            "text-muted-light": "#6b7280",
+            "text-muted-dark": "#9ca3af",
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+          },
+          boxShadow: {
+            'xl-red': '0 20px 25px -5px rgba(242, 13, 13, 0.3), 0 10px 10px -5px rgba(242, 13, 13, 0.2)',
+          }
+        },
+      },
+    }
+</script>
 </head>
+<body class="dark bg-background-dark min-h-screen flex items-center justify-center p-4 font-sans">
+<div class="w-full max-w-sm">
+    <div class="text-center mb-10">
+        <h1 class="text-4xl font-extrabold text-primary tracking-wider uppercase mb-1">F1 HUB</h1>
+        <p class="text-text-muted-dark">Únete a la parrilla.</p>
+    </div>
 
-<body class="bg-[#0e0e0e] text-white min-h-screen flex items-center justify-center px-6">
+    <div class="bg-card-dark p-8 rounded-2xl shadow-xl shadow-primary/20 border border-primary/30">
+        <h2 class="text-2xl font-bold text-text-dark mb-6">Registro</h2>
+        
+        <form id="registerForm" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-text-muted-dark mb-1">Email</label>
+                <input type="email" id="email" name="email" required class="w-full px-4 py-2 bg-background-dark border border-primary/20 rounded-lg text-text-dark focus:ring-primary focus:border-primary transition duration-200">
+            </div>
+            
+            <div>
+                <label for="password" class="block text-sm font-medium text-text-muted-dark mb-1">Contraseña (Mínimo 6 caracteres)</label>
+                <div class="relative">
+                    <input type="password" id="password" name="password" required class="w-full px-4 py-2 bg-background-dark border border-primary/20 rounded-lg text-text-dark focus:ring-primary focus:border-primary transition duration-200 pr-10">
+                    <span id="togglePasswordReg" class="material-symbols-outlined absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-text-muted-dark hover:text-primary">visibility</span>
+                </div>
+            </div>
+            
+            <button id="registerBtn" type="button" class="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-lg shadow-primary/40 hover:bg-red-700 transition duration-300 transform hover:scale-[1.01] flex items-center justify-center">
+                <span class="truncate">REGISTRAR Y EMPEZAR</span>
+            </button>
+        </form>
 
-  <div class="w-full max-w-md bg-black/40 border border-white/10 backdrop-blur-md p-8 rounded-xl shadow-xl">
-    <h1 class="text-3xl font-bold text-center mb-6 text-red-500">Create Your Account</h1>
+        <p class="mt-6 text-center text-sm text-text-muted-dark">
+            ¿Ya tienes cuenta? 
+            <a id="loginLink" href="#" class="text-primary font-semibold hover:underline transition duration-200">Inicia sesión aquí</a>
+        </p>
+    </div>
+</div>
 
-    <label class="block mb-4">
-      <p class="mb-1 text-white/80">Email</p>
-      <input id="email" class="w-full h-12 px-3 rounded-lg bg-white/10 border border-white/20 focus:ring-2 ring-red-600" type="email" placeholder="you@example.com"/>
-    </label>
+<script type="module">
+// 1. CONFIGURACIÓN REAL DE FIREBASE
+const firebaseConfig = {
+    apiKey: "AIzaSyCI5lOdyNV6intEbFy9BXPP-gcPDD3vQOY",
+    authDomain: "webmussetof1.firebaseapp.com",
+    projectId: "webmussetof1",
+    storageBucket: "webmussetof1.firebasestorage.app",
+    messagingSenderId: "461670115383",
+    appId: "1:461670115383:web:55a98857d6d620efd5b7b2",
+    measurementId: "G-03VLFQ4MVH"
+};
 
-    <label class="block mb-6">
-      <p class="mb-1 text-white/80">Password</p>
-      <input id="password" class="w-full h-12 px-3 rounded-lg bg-white/10 border border-white/20 focus:ring-2 ring-red-600" type="password" placeholder="••••••••"/>
-    </label>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-    <button id="registerBtn" class="w-full py-3 bg-red-600 hover:bg-red-700 transition rounded-lg font-bold">
-      CREATE ACCOUNT
-    </button>
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    <p class="text-center mt-4 text-white/60 text-sm">
-      ¿Ya tenés cuenta?
-      <a href="index.html" class="underline hover:text-red-400">Login</a>
-    </p>
-  </div>
+// 3. OBTENER ELEMENTOS DEL DOM
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const registerBtn = document.getElementById("registerBtn");
+const loginLink = document.getElementById("loginLink");
 
-  <script type="module">
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyCI5lOdyNV6intEbFy9BXPP-gcPDD3vQOY",
-      authDomain: "webmussetof1.firebaseapp.com",
-      projectId: "webmussetof1",
-      storageBucket: "webmussetof1.firebasestorage.app",
-      messagingSenderId: "461670115383",
-      appId: "1:461670115383:web:55a98857d6d620efd5b7b2"
-    };
+// 4. LÓGICA DE REGISTRO CON FIREBASE
+if (registerBtn) {
+    registerBtn.addEventListener("click", async () => {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
 
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { 
-      getAuth,
-      createUserWithEmailAndPassword,
-      sendEmailVerification
-    } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        if (password.length < 6) {
+            alert("La contraseña debe tener al menos 6 caracteres.");
+            return;
+        }
+        if (!email) {
+            alert("Por favor, ingresa tu email.");
+            return;
+        }
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+        try {
+            // 1. Crea el usuario
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
 
-    const emailInput = document.getElementById("email");
-    const passInput = document.getElementById("password");
-    const btn = document.getElementById("registerBtn");
-
-    btn.addEventListener("click", async () => {
-      const email = emailInput.value.trim();
-      const pass = passInput.value.trim();
-
-      if (!email || !pass) {
-        alert("Completá todos los campos.");
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = "CREATING...";
-
-      try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-        await sendEmailVerification(userCredential.user);
-
-        alert("Cuenta creada. Revisá tu email y verificá tu cuenta.");
-        window.location.href = "index.html";
-
-      } catch (e) {
-        console.error(e);
-        alert("Error: " + e.message);
-
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "CREATE ACCOUNT";
-      }
+            // 2. Envía el email de verificación
+            await sendEmailVerification(user);
+            
+            // 3. Informa al usuario y redirige al Login
+            alert("¡Cuenta creada con éxito! Se ha enviado un correo de verificación. Por favor, verifica tu cuenta antes de iniciar sesión.");
+            window.location.href = "index.html"; 
+            
+        } catch (error) {
+            console.error("Error de registro:", error.code, error.message);
+            
+            let msg = "Ocurrió un error al registrar.";
+            if (error.code === 'auth/email-already-in-use') {
+                msg = "Este email ya está en uso. Intenta iniciar sesión.";
+            }
+            if (error.code === 'auth/weak-password') {
+                msg = "Contraseña muy débil. Debe tener al menos 6 caracteres.";
+            }
+            
+            alert(`Error de Registro: ${msg}`);
+        }
     });
-  </script>
+}
 
+// 5. Redirigir al Login
+if (loginLink) {
+    loginLink.addEventListener("click", () => {
+        window.location.href = "index.html";
+    });
+}
+
+// 6. Lógica de Visibilidad de Contraseña
+const passwordInputReg = document.getElementById("password");
+const togglePasswordReg = document.getElementById("togglePasswordReg");
+
+if (passwordInputReg && togglePasswordReg) {
+    togglePasswordReg.addEventListener('click', function () {
+        const type = passwordInputReg.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInputReg.setAttribute('type', type);
+        this.textContent = (type === 'password' ? 'visibility' : 'visibility_off');
+    });
+}
+</script>
 </body>
 </html>
