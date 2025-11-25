@@ -38,7 +38,7 @@
         async function loadDrivers() {
             try {
                 // Fetch de datos locales desde data.json
-                const response = await fetch('./data.json');
+                const response = await fetch('.api/drivers.json');
                 if (!response.ok) {
                     throw new Error('Error al cargar data.json');
                 }
