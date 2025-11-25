@@ -37,8 +37,8 @@
         
         async function loadDrivers() {
             try {
-                // Fetch de datos locales desde data.json
-                const response = await fetch('.api/drivers.json');
+
+                const response = await fetch('drivers.json');
                 if (!response.ok) {
                     throw new Error('Error al cargar data.json');
                 }
@@ -47,7 +47,6 @@
                 const driverListDiv = document.getElementById('drivers-list');
                 driverListDiv.innerHTML = ''; 
 
-                // Renderizar cada driver
                 data.drivers.forEach(driver => {
                     const card = document.createElement('div');
                     card.className = 'driver-card bg-black/50 p-5 rounded-xl border border-white/10 flex flex-col items-center';
@@ -69,7 +68,7 @@
         loadDrivers();
     </script>
         <script type="module">
-    // 1. **DEBES REEMPLAZAR ESTA CONFIGURACIÓN CON LOS VALORES DE TU CONSOLA DE FIREBASE**
+   
     const firebaseConfig = {
         apiKey: "AIzaSyCI5lOdyNV6intEbFy9BXPP-gcPDD3vQOY",
         authDomain: "webmussetof1.firebaseapp.com",
@@ -86,21 +85,21 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    // FUNCIÓN DE CONTROL DE ACCESO
+
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Hay un usuario logueado. Chequeamos la verificación
+
             if (user.emailVerified) {
                 console.log("Acceso concedido. Usuario verificado.");
-                // Si el usuario es verificado, el contenido de la página se muestra
+
             } else {
-                // Si no está verificado, lo forzamos a salir y lo mandamos al login
+
                 alert("Tu cuenta no está verificada. Redirigiendo al Login.");
                 signOut(auth);
                 window.location.href = "index.html";
             }
         } else {
-            // No hay usuario logueado, redirigir al login
+
             console.log("No hay sesión activa. Redirigiendo al Login.");
             window.location.href = "index.html";
         }
