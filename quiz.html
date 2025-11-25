@@ -42,7 +42,7 @@
 
   <div class="w-full max-w-2xl bg-card-dark p-8 rounded-2xl shadow-xl shadow-primary/40 border border-primary/20">
 
-    <!-- HEADER -->
+
     <header class="flex justify-between items-center mb-8">
       <h1 class="text-3xl font-extrabold text-primary tracking-wide">F1 QUIZ</h1>
 
@@ -52,7 +52,7 @@
       </a>
     </header>
 
-    <!-- INTRO -->
+
     <div id="intro" class="space-y-4">
       <p class="text-text-muted-dark">
         Probá tus conocimientos de Fórmula 1. 8 preguntas. ¡Demostrá que sos digno del podio!
@@ -64,7 +64,7 @@
       </button>
     </div>
 
-    <!-- QUIZ -->
+
     <div id="quiz" class="hidden space-y-6">
 
       <p id="questionCount" class="text-sm text-primary font-bold"></p>
@@ -81,7 +81,7 @@
       </button>
     </div>
 
-    <!-- RESULTADOS -->
+
     <div id="results" class="hidden text-center space-y-6">
         <h2 class="text-3xl font-bold text-primary">¡Carrera Terminada!</h2>
         <p id="scoreText" class="text-xl text-text-dark"></p>
@@ -95,7 +95,7 @@
 
 <!-- ======================= JS =========================== -->
 <script type="module">
-/* ---------------- FIREBASE ---------------- */
+
 const firebaseConfig = {
     apiKey: "AIzaSyCI5lOdyNV6intEbFy9BXPP-gcPDD3vQOY",
     authDomain: "webmussetof1.firebaseapp.com",
@@ -133,7 +133,6 @@ const answersDiv = document.getElementById("answers");
 const questionCount = document.getElementById("questionCount");
 const scoreText = document.getElementById("scoreText");
 
-/* Preguntas internas — SIN JSON */
 const questions = [
   {
     q: "¿Quién ganó el Campeonato Mundial de Pilotos 2024?",
@@ -160,14 +159,14 @@ const questions = [
 let index = 0;
 let score = 0;
 
-/* INICIAR */
+
 startBtn.addEventListener("click", () => {
     intro.classList.add("hidden");
     quiz.classList.remove("hidden");
     loadQuestion();
 });
 
-/* CARGAR PREGUNTA */
+
 function loadQuestion() {
     const q = questions[index];
     questionCount.textContent = `Pregunta ${index + 1} de ${questions.length}`;
@@ -199,23 +198,23 @@ function loadQuestion() {
     });
 }
 
-/* SIGUIENTE */
+
 nextBtn.onclick = () => {
     index++;
     if (index >= questions.length) return showResults();
     loadQuestion();
 };
 
-/* RESULTADOS */
 function showResults() {
     quiz.classList.add("hidden");
     results.classList.remove("hidden");
     scoreText.textContent = `Tu puntuación final es: ${score}/${questions.length}`;
 }
 
-/* REINICIAR */
+
 document.getElementById("restartBtn").onclick = () => location.reload();
 </script>
 
 </body>
 </html>
+
