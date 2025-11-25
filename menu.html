@@ -52,7 +52,7 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
-            <!-- Opción Dashboard de Pilotos -->
+
             <a id="driversBtn" href="#" class="group relative flex transform flex-col justify-between overflow-hidden rounded-xl bg-card-dark p-6 shadow-xl shadow-gray-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/30 border border-primary/20">
                 <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 
@@ -70,7 +70,7 @@
                 </div>
             </a>
 
-            <!-- Opción Quiz F1 -->
+     
             <a id="quizzBtn" href="#" class="group relative flex transform flex-col justify-between overflow-hidden rounded-xl bg-card-dark p-6 shadow-xl shadow-gray-900/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/30 border border-primary/20">
                 <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
                 
@@ -91,7 +91,7 @@
     </main>
 
 <script type="module">
-// 1. CONFIGURACIÓN REAL DE FIREBASE
+
 const firebaseConfig = {
     apiKey: "AIzaSyCI5lOdyNV6intEbFy9BXPP-gcPDD3vQOY",
     authDomain: "webmussetof1.firebaseapp.com",
@@ -105,40 +105,39 @@ const firebaseConfig = {
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
-// Inicializar Firebase
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// OBTENER BOTONES
+
 const logoutBtn = document.getElementById("logoutBtn");
 const quizzBtn = document.getElementById("quizzBtn");
 const driversBtn = document.getElementById("driversBtn");
 
-// 2. FUNCIÓN DE CONTROL DE ACCESO (Muro de Seguridad)
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
-        // Hay un usuario logueado. Chequeamos la verificación de email
+
         if (user.emailVerified) {
             console.log("Acceso concedido. Usuario verificado.");
         } else {
-            // Si no está verificado, forzamos la salida y lo mandamos al login
+
             alert("Tu cuenta no está verificada. Revisa tu email. Redirigiendo al Login.");
             signOut(auth);
             window.location.href = "index.html";
         }
     } else {
-        // No hay usuario logueado, redirigir al login
+
         console.log("No hay sesión activa. Redirigiendo al Login.");
         window.location.href = "index.html";
     }
 });
 
-// 3. LÓGICA DE LOGOUT
 if (logoutBtn) {
     logoutBtn.addEventListener("click", async () => {
         try {
             await signOut(auth);
-            // La redirección a index.html ocurre automáticamente por onAuthStateChanged
+
             alert("Sesión cerrada correctamente.");
         } catch (error) {
             console.error("Error al cerrar sesión:", error);
@@ -147,7 +146,7 @@ if (logoutBtn) {
     });
 }
 
-// 4. LÓGICA DE REDIRECCIÓN A MENÚS
+
 if (quizzBtn) {
     quizzBtn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -158,16 +157,16 @@ if (quizzBtn) {
 if (driversBtn) {
     driversBtn.addEventListener("click", (e) => {
         e.preventDefault();
-        window.location.href = "dashboard.html"; // Asumo que el archivo se llama dashboard.html
+        window.location.href = "dashboard.html"; 
     });
 }
 </script>
 <script>
-  // Botones del menú
+
   const driversBtn = document.getElementById("driversBtn");
   const quizzBtn = document.getElementById("quizzBtn");
 
-  // Redirecciones
+
   if (driversBtn) {
     driversBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -183,4 +182,5 @@ if (driversBtn) {
   }
 </script>
 </body>
+
 </html>
