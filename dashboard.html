@@ -32,34 +32,36 @@
         </div>
     </div>
 
-    <script type="module">
-            async function loadBillionaires() {
-        const apiURL = 'https://cdn.jsdelivr.net/gh/komed3/rtb-api@main/api/latest';
+    
+<script type="module">
+    async function loadBillionaires() {
+        const apiURL = 'https://forbes400.herokuapp.com/api/forbes400?limit=5';
         try {
             const response = await fetch(apiURL);
             if (!response.ok) throw new Error('Error al traer los billionaires');
-    
-            const data = await response.json();
-            const top5 = data.slice(0, 5);
-    
+
+            const data = await response.json(); // JSON limpio
+
             const container = document.getElementById('billionaires-list');
             container.innerHTML = '';
-    
-            top5.forEach(persona => {
+
+            data.forEach(persona => {
                 const card = document.createElement('div');
                 card.className = 'card bg-black/50 p-5 rounded-xl border border-white/10 flex flex-col items-center';
-                
-                const imageUrl = persona.image || 'https://via.placeholder.com/150?text=No+Image';
-    
+
+                const imageUrl = persona.squareImage || 'https://via.placeholder.com/150?text=No+Image';
+                const netWorthB = (persona.finalWorth / 1000).toFixed(2); // viene en millones, pasamos a B USD
+
                 card.innerHTML = `
-                    <img src="${imageUrl}" alt="${persona.name}" class="w-24 h-24 rounded-full mb-3 object-cover border-2 border-white/20"/>
-                    <h2 class="text-2xl font-bold mb-1">${persona.name}</h2>
-                    <p class="text-white/70 text-lg mb-2">Net Worth: $${(persona.netWorth / 1e9).toFixed(2)} B USD</p>
-                    <p class="bg-white/10 text-xs py-1 px-3 rounded-full">${persona.rank ? `Rank #${persona.rank}` : ''}</p>
+                    <img src="${imageUrl}" alt="${persona.personName}" class="w-24 h-24 rounded-full mb-3 object-cover border-2 border-white/20"/>
+                    <h2 class="text-2xl font-bold mb-1">${persona.personName}</h2>
+                    <p class="text-white/70 text-lg mb-2">Net Worth: $${netWorthB} B USD</p>
+                    <p class="bg-white/10 text-xs py-1 px-3 rounded-full">Rank #${persona.rank}</p>
                 `;
+
                 container.appendChild(card);
             });
-    
+
         } catch (error) {
             console.error(error);
             document.getElementById('billionaires-list').innerHTML = '<p class="text-center text-red-500">No se pudieron cargar los datos de los billionaires.</p>';
@@ -68,8 +70,8 @@
 
     loadBillionaires();
     setInterval(loadBillionaires, 30000);
-
 </script>
 
 </body>
 </html>
+
